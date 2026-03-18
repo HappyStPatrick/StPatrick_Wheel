@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>☘️ Saint Patrick's Wheel ☘️</title>
+    <title>☘️ Lucky St. Paddy's Wheel ☘️</title>
     <style>
         body { 
             display: flex; 
@@ -15,17 +15,18 @@
             justify-content: center; 
             height: 100vh; 
             margin: 0; 
-            /* Fond vert dégradé avec motif */
             background: radial-gradient(circle, #1a5e20 0%, #003300 100%);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Comic Sans MS', 'Segoe UI', cursive, sans-serif;
             overflow: hidden;
             color: #ffd700;
+            text-align: center;
         }
 
         h1 {
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            margin-bottom: 20px;
-            font-size: 2.5rem;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+            padding: 0 10px;
         }
 
         #wheel-container { 
@@ -35,9 +36,9 @@
         }
 
         canvas { 
-            border: 8px solid #ffd700; /* Bordure dorée */
+            border: 8px solid #ffd700;
             border-radius: 50%; 
-            box-shadow: 0 0 50px rgba(0,0,0,0.5), 0 0 20px #ffd700; 
+            box-shadow: 0 0 40px rgba(0,0,0,0.6), 0 0 20px #ffd700; 
             max-width: 85vw; 
             background-color: white;
         }
@@ -51,14 +52,14 @@
             height: 0; 
             border-left: 20px solid transparent; 
             border-right: 20px solid transparent; 
-            border-top: 40px solid #ffd700; /* Flèche dorée */
+            border-top: 40px solid #ffd700;
             filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
             z-index: 10; 
         }
 
         button { 
-            padding: 18px 40px; 
-            font-size: 1.5rem; 
+            padding: 18px 45px; 
+            font-size: 1.4rem; 
             font-weight: bold;
             cursor: pointer; 
             background: linear-gradient(#ffd700, #b8860b);
@@ -66,23 +67,22 @@
             border: 3px solid #fff; 
             border-radius: 50px; 
             transition: 0.3s; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.4);
             text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         button:hover { 
-            transform: scale(1.1) rotate(-2deg); 
-            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            transform: scale(1.1); 
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
         }
 
         button:disabled { 
             background: #7f8c8d; 
             cursor: not-allowed; 
             opacity: 0.7; 
-            transform: none;
         }
 
-        /* Animation des trèfles en arrière-plan */
         .clover {
             position: absolute;
             top: -50px;
@@ -93,32 +93,39 @@
         }
 
         @keyframes fall {
-            to {
-                transform: translateY(105vh) rotate(360deg);
-            }
+            to { transform: translateY(105vh) rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
-    <h1>☘️ Lucky Wheel ☘️</h1>
+    <h1>☘️ Spin for Luck & Love ☘️</h1>
 
     <div id="wheel-container">
         <div id="pointer"></div>
         <canvas id="wheel" width="400" height="400"></canvas>
     </div>
 
-    <button id="spinBtn">Tenter ma chance !</button>
+    <button id="spinBtn">Test Your Luck!</button>
 
     <script>
         const canvas = document.getElementById('wheel');
         const ctx = canvas.getContext('2d');
         const spinBtn = document.getElementById('spinBtn');
 
-        // --- TES CHOIX (Modifie-les ici) ---
-        const options = ["Trèfle d'Or", "Bière", "Chanson", "Danse", "Pot d'Or", "Farfadet"];
-        // Couleurs thématiques : différents verts et or
-        const colors = ["#2e7d32", "#ffd700", "#1b5e20", "#fbc02d", "#4caf50", "#c0ca33"];
+        // --- FUN ST. PADDY'S OPTIONS ---
+        const options = [
+            "Kiss 💋", 
+            "Split the G 🍺", 
+            "jsp 🥃", 
+            "Jsp ❤️", 
+            "Jsp 🤫", 
+            "Jsp ☘️",
+            "Jsp ✨",
+            "Jsp 💰"
+        ];
+        
+        const colors = ["#2e7d32", "#ffd700", "#1b5e20", "#e91e63", "#4caf50", "#fbc02d", "#388e3c", "#f48fb1"];
         
         let startAngle = 0;
         const arc = Math.PI / (options.length / 2);
@@ -139,12 +146,12 @@
                 ctx.lineTo(200, 200);
                 ctx.fill();
 
-                // Texte
                 ctx.save();
                 ctx.fillStyle = (colors[i % colors.length] === "#ffd700" || colors[i % colors.length] === "#fbc02d") ? "#003300" : "white";
                 ctx.translate(200 + Math.cos(angle + arc / 2) * 140, 200 + Math.sin(angle + arc / 2) * 140);
                 ctx.rotate(angle + arc / 2 + Math.PI / 2);
-                ctx.font = 'bold 18px Arial';
+                ctx.font = 'bold 14px Arial';
+                // On ajuste l'affichage pour les noms longs
                 ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
                 ctx.restore();
             });
@@ -167,8 +174,8 @@
             const arcd = arc * 180 / Math.PI;
             const index = Math.floor((360 - degrees % 360) / arcd);
             
-            // Un petit message plus festif
-            alert("✨ Le destin a choisi : " + options[index] + " ! ✨");
+            // Pop-up fun
+            alert("✨ Destiny says: " + options[index] + " ! ✨");
         }
 
         function easeOut(t, b, c, d) {
@@ -187,23 +194,19 @@
             rotateWheel();
         });
 
-        // Fonction pour créer des trèfles qui tombent
         function createClover() {
             const clover = document.createElement('div');
             clover.classList.add('clover');
-            clover.innerHTML = '☘️';
+            // Alterne entre trèfles et cœurs pour le thème Love & Luck
+            clover.innerHTML = Math.random() > 0.5 ? '☘️' : '🍀';
             clover.style.left = Math.random() * 100 + 'vw';
             clover.style.animationDuration = Math.random() * 3 + 2 + 's';
             clover.style.opacity = Math.random();
             document.body.appendChild(clover);
-
-            setTimeout(() => {
-                clover.remove();
-            }, 5000);
+            setTimeout(() => { clover.remove(); }, 5000);
         }
 
-        setInterval(createClover, 300);
-
+        setInterval(createClover, 400);
         drawWheel();
     </script>
 </body>
